@@ -1,4 +1,4 @@
-import { supabaseServer } from './supabase-server'
+import { createClient } from './supabase-server'
 import bcrypt from 'bcryptjs'
 
 export interface AdminUser {
@@ -8,6 +8,9 @@ export interface AdminUser {
 }
 
 export async function verifyAdminLogin(username: string, password: string): Promise<AdminUser | null> {
+
+  const supabaseServer = await createClient()
+  
   try {
     // Check if admin exists
     const { data: admin, error } = await supabaseServer
